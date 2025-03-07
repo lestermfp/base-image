@@ -14,8 +14,16 @@ PIP_PACKAGES=(
 
 )
 
+EXTENSIONS=(
+    'https://github.com/Mikubill/sd-webui-controlnet'
+    'https://github.com/adieyal/sd-dynamic-prompts'
+    'https://github.com/hako-mikan/sd-webui-regional-prompter'
+    'https://github.com/Bing-su/adetailer'
+    'https://github.com/picobyte/stable-diffusion-webui-wd14-tagger'
+)
+
 CHECKPOINT_MODELS=(
-    "https://civitai.com/api/download/models/798204?type=Model&format=SafeTensor&size=full&fp=fp16"
+    "https://civitai.com/api/download/models/1422871?type=Model&format=SafeTensor&size=pruned&fp=fp16"
 )
 
 UNET_MODELS=(
@@ -28,9 +36,17 @@ VAE_MODELS=(
 )
 
 ESRGAN_MODELS=(
+    'https://huggingface.co/datasets/AddictiveFuture/sdxl-pony-models-backup/resolve/main/ESRGAN/2xHFA2kOmniSR.pth'
+    'https://huggingface.co/datasets/AddictiveFuture/sdxl-pony-models-backup/resolve/main/ESRGAN/4x-UltraSharp.pth'
+    'https://huggingface.co/datasets/AddictiveFuture/sdxl-pony-models-backup/resolve/main/ESRGAN/8x_NMKD-Superscale_150000_G.pth'
 )
 
 CONTROLNET_MODELS=(
+)
+
+EMBEDDINGS=(
+    "https://civitai.com/api/download/models/1503612?type=Negative&format=Other"
+    "https://civitai.com/api/download/models/1503873?type=Model&format=SafeTensor"
 )
 
 ### DO NOT EDIT BELOW HERE UNLESS YOU KNOW WHAT YOU ARE DOING ###
@@ -43,6 +59,12 @@ function provisioning_start() {
     provisioning_get_files \
         "${A1111_DIR}/models/Stable-diffusion" \
         "${CHECKPOINT_MODELS[@]}"
+    provisioning_get_files \
+        "${A1111_DIR}/embeddings" \
+        "${EMBEDDINGS[@]}"
+    provisioning_get_files \
+        "${A1111_DIR}/models/ESRGAN" \
+        "${ESRGAN_MODELS[@]}"
 
     
     # Avoid git errors because we run as root but files are owned by 'user'
